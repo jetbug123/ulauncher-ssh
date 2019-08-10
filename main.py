@@ -102,7 +102,7 @@ class KeywordQueryEventListener(EventListener):
         hosts.sort()
 
         if arg is not None and len(arg) > 0:
-            hosts = filter(lambda x: arg in x, hosts)
+            hosts = [x for x in hosts if arg in x]
 
         for host in hosts:
             items.append(ExtensionResultItem(icon=icon,

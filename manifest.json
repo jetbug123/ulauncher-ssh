@@ -1,6 +1,5 @@
 {
-  "manifest_version": "2",
-  "api_version": "1",
+  "required_api_version": "^2.0.0",
   "name": "SSH Launcher",
   "description": "Launch SSH connections.",
   "developer_name": "Jonas Bendlin",
@@ -21,7 +20,7 @@
 		"type": "input",
 		"name": "Terminal",
 		"description": "The Terminal to launch the connections in.",
-		"default_value": "xterm"
+		"default_value": "tilix"
 	},
 	{
 		"id": "ssh_launcher_terminal_arg",
