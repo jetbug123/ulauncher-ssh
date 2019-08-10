@@ -20,7 +20,7 @@
 		"type": "input",
 		"name": "Terminal",
 		"description": "The Terminal to launch the connections in.",
-		"default_value": "tilix"
+		"default_value": "xterm"
 	},
 	{
 		"id": "ssh_launcher_terminal_arg",
