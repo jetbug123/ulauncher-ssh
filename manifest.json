@@ -5,16 +5,16 @@
   "developer_name": "Jonas Bendlin",
   "icon": "images/icon.png",
   "options": {
-    "query_debounce": 0.1
+	"query_debounce": 0.1
   },
   "preferences": [
-    {
-      "id": "ssh_launcher_kw",
-      "type": "keyword",
-      "name": "SSH Launcher",
-      "description": "",
-      "default_value": "ssh"
-    },
+	{
+	  "id": "ssh_launcher_kw",
+	  "type": "keyword",
+	  "name": "SSH Launcher",
+	  "description": "",
+	  "default_value": "ssh"
+	},
 	{
 		"id": "ssh_launcher_terminal",
 		"type": "input",
@@ -35,6 +35,23 @@
 		"name": "Terminal cmd",
 		"description": "The command to start the terminal with. %SHELL equals the env var $SHELL and %CONN the selected connection.",
 		"default_value": "%SHELL -c 'ssh \"%CONN\"';%SHELL"
+	},
+	{
+		"id": "ssh_launcher_use_known_hosts",
+		"type": "select",
+		"name": "Use known_hosts",
+		"description": "Parse the ~/.ssh/known_hosts file for more suggestions.",
+		"options": [
+			{
+				"value": "True",
+				"text": "Yes"
+			},
+			{
+				"value": "False",
+				"text": "No"
+			}
+		],
+		"default_value": "True"
 	}
   ]
 }

@@ -82,6 +82,8 @@ class PreferencesUpdateEventListener(EventListener):
             extension.terminal_arg = event.new_value
         elif event.id == "ssh_launcher_terminal_cmd":
             extension.terminal_cmd = event.new_value
+        elif event.id == "ssh_launcher_use_known_hosts":
+            extension.use_known_hosts = event.new_value
 
 class PreferencesEventListener(EventListener):
 
@@ -89,6 +91,7 @@ class PreferencesEventListener(EventListener):
         extension.terminal = event.preferences["ssh_launcher_terminal"]
         extension.terminal_arg = event.preferences["ssh_launcher_terminal_arg"]
         extension.terminal_cmd = event.preferences["ssh_launcher_terminal_cmd"]
+        extension.use_known_hosts = event.preferences["ssh_launcher_use_known_hosts"]
 
 class KeywordQueryEventListener(EventListener):
 
@@ -97,7 +100,8 @@ class KeywordQueryEventListener(EventListener):
         items = []
         arg = event.get_argument()
         hosts = extension.parse_ssh_config()
-        hosts += extension.parse_known_hosts()
+        if extension.use_known_hosts == "True":
+            hosts += extension.parse_known_hosts()
 
         hosts.sort()
 
