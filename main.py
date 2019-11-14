@@ -1,3 +1,5 @@
+import glob
+
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
 from ulauncher.api.shared.event import KeywordQueryEvent, ItemEnterEvent, PreferencesUpdateEvent, PreferencesEvent
@@ -30,6 +32,17 @@ class SshExtension(Extension):
             with open(home + "/.ssh/config", "r") as ssh_config:
                 for line in ssh_config:
                     line_lc = line.lower()
+
+                    if line_lc.startswith("include"):
+                        path = (home + "/.ssh/" + (line_lc.strip("include")).strip())
+                        for fn in glob.iglob(path):
+                            if os.path.isfile(fn):
+                                with open(fn, "r") as cf:
+                                    for ln in cf:
+                                        lc = ln.lower()
+                                        if lc.startswith(
+                                                "host") and "*" not in lc and "keyalgorithms" not in lc:
+                                            hosts.append(lc.strip("host").strip("\n").strip())
 
                     if line_lc.startswith("host") and "*" not in line_lc and "keyalgorithms" not in line_lc:
                         hosts.append(line_lc.strip("host").strip("\n").strip())
