@@ -45,7 +45,11 @@ class SshExtension(Extension):
                                             hosts.append(lc.strip("host").strip("\n").strip())
 
                     if line_lc.startswith("host") and "*" not in line_lc and "keyalgorithms" not in line_lc:
-                        hosts.append(line_lc.strip("host").strip("\n").strip())
+                        len_hosts=len(line_lc.strip("host").strip("\n").strip().split())
+                        if len_hosts > 1:
+                            hosts.extend(line_lc.strip("host").strip("\n").strip().split())
+                        else:
+                            hosts.append(line_lc.strip("host").strip("\n").strip())
         except:
             logger.debug("ssh config not found!")
 
