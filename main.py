@@ -78,10 +78,10 @@ class SshExtension(Extension):
         shell = os.environ["SHELL"]
         home = expanduser("~")
 
-        cmd = self.terminal_cmd.replace("%SHELL", shell).replace("%CONN", addr)
+        cmd = "ssh %CONN".replace("%CONN", addr)
 
         if self.terminal:
-            subprocess.Popen([self.terminal, self.terminal_arg, cmd], cwd=home)
+            subprocess.Popen([self.terminal, self.terminal_arg, shell, '-c', cmd, ';', shell], cwd=home)
 
 class ItemEnterEventListener(EventListener):
 
