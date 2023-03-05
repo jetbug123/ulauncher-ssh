@@ -12,6 +12,7 @@ import subprocess
 import os
 import re
 import shlex
+import shutil
 
 logger = logging.getLogger(__name__)
 
@@ -78,10 +79,13 @@ class SshExtension(Extension):
         shell = os.environ["SHELL"]
         home = expanduser("~")
 
-        cmd = self.terminal_cmd.replace("%SHELL", shell).replace("%CONN", addr)
+        # Build args for popen
+        cmd = [shutil.which(self.terminal)]
+        cmd.extend(shlex.split(self.terminal_arg))
+        cmd.extend(shlex.split(self.terminal_cmd.replace("%SHELL", shell).replace("%CONN", addr)))
 
         if self.terminal:
-            subprocess.Popen([self.terminal, self.terminal_arg, cmd], cwd=home)
+            subprocess.Popen(cmd, cwd=home)
 
 class ItemEnterEventListener(EventListener):
 
